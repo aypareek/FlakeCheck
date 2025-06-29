@@ -9,6 +9,7 @@ def generate_recommendations(warehouse_report, query_report, storage_report):
             "- ⚠️ One or more warehouses are running without queries. Consider reducing size or enabling auto-suspend."
         )
 
+
     if "missing recommended suspend/resume" in warehouse_report.lower():
         recommendations.append(
             "- ⏸ Some warehouses lack auto-suspend/auto-resume settings. Enable these to reduce idle costs."

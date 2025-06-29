@@ -11,6 +11,7 @@ def get_snowflake_connection(config_path="config.yaml"):
     auth_method = config.get("auth_method", "externalbrowser")
     creds = config["snowflake"]
 
+
     conn_params = {
         "account": creds["account"],
         "user": creds["user"],

@@ -50,6 +50,7 @@ def main():
 
         print(f"✅ Report generated at {report_path}")
 
+
         # Optional Slack Notification
         send_slack_notification("✅ FlakeCheck audit completed. Report is ready.")
 

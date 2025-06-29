@@ -5,6 +5,7 @@ def check_warehouses(conn):
     try:
         cursor.execute("SHOW WAREHOUSES")
         warehouses = cursor.fetchall()
+     
         columns = [col[0] for col in cursor.description]
 
         for row in warehouses:

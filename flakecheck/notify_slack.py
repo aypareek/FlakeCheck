@@ -9,6 +9,7 @@ def send_slack_notification(message, webhook_url=None):
         print("⚠️ SLACK_WEBHOOK_URL not set. Skipping Slack notification.")
         return
 
+
     payload = {"text": message}
     try:
         response = requests.post(webhook, json=payload)

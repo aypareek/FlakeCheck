@@ -70,5 +70,6 @@ def main():
     st.subheader("📄 FlakeCheck Markdown Report")
     st.markdown(load_report(), unsafe_allow_html=True)
 
+
 if __name__ == "__main__":
     main()

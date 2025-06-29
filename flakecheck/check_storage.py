@@ -30,6 +30,7 @@ def check_storage(conn, config):
                 f"(Active: {r[4]:.2f} / TT: {r[5]:.2f} / FS: {r[6]:.2f}) | 🧮 {r[2]} rows"
             )
 
+
         # Conditionally run inactive check
         if account_type == "enterprise":
             results.append("\n✅ Enterprise mode: Checking access history for stale tables...")

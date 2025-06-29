@@ -67,6 +67,7 @@ def get_top_users_by_query_cost(conn):
     finally:
         cursor.close()
 
+
 def get_query_count_over_time(conn):
     cursor = conn.cursor()
     try:

@@ -3,6 +3,7 @@ def check_queries(conn):
     cursor = conn.cursor()
     results = []
 
+
     try:
         cursor.execute("""
             SELECT 

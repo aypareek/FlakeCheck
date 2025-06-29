@@ -1,0 +1,24 @@
+default_stages: [commit, push]
+exclude: 'ARCHIVE/.*'
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.1.0
+    hooks:
+    -   id: check-yaml
+        args: [--unsafe]
+    -   id: check-json
+    -   id: pretty-format-json
+        args: [--autofix]
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+
+-   repo: https://github.com/psf/black
+    rev: 22.3.0
+    hooks:
+    -   id: black
+        args: [--diff, --check]
+        name: black (diff)
+        additional_dependencies: ['click==8.0.4']
+    -   id: black
+        name: black (format)
+        additional_dependencies: ['click==8.0.4']
