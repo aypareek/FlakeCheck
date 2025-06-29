@@ -12,10 +12,12 @@ from flakecheck.check_storage import check_storage
 from flakecheck.recommend_optimizer import generate_recommendations
 from flakecheck.notify_slack import send_slack_notification
 
+
 def parse_args():
     parser = argparse.ArgumentParser(description="FlakeCheck: Snowflake Audit Tool")
-    parser.add_argument('--config', default='config.yaml', help='Path to config file')
+    parser.add_argument("--config", default="config.yaml", help="Path to config file")
     return parser.parse_args()
+
 
 def main():
     args = parse_args()
@@ -42,14 +44,15 @@ def main():
         os.makedirs("outputs", exist_ok=True)
 
         with open(report_path, "w") as f:
-            f.write(f"# ❄️ FlakeCheck Report - {datetime.datetime.now().strftime('%Y-%m-%d')}\n\n")
+            f.write(
+                f"# ❄️ FlakeCheck Report - {datetime.datetime.now().strftime('%Y-%m-%d')}\n\n"
+            )
             f.write(warehouse_report)
             f.write(query_report)
             f.write(storage_report)
             f.write(recommendations)
 
         print(f"✅ Report generated at {report_path}")
-
 
         # Optional Slack Notification
         send_slack_notification("✅ FlakeCheck audit completed. Report is ready.")
@@ -59,8 +62,9 @@ def main():
 
     # Ask to launch Streamlit dashboard
     launch = input("📊 Would you like to open the Streamlit dashboard? (y/n): ").lower()
-    if launch == 'y':
+    if launch == "y":
         subprocess.run(["streamlit", "run", "dashboard.py"])
+
 
 if __name__ == "__main__":
     main()

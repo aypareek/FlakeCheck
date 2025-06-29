@@ -5,7 +5,7 @@ def check_warehouses(conn):
     try:
         cursor.execute("SHOW WAREHOUSES")
         warehouses = cursor.fetchall()
-     
+
         columns = [col[0] for col in cursor.description]
 
         for row in warehouses:
@@ -18,9 +18,13 @@ def check_warehouses(conn):
             running = wh["running"]
 
             if state == "STARTED" and running == 0:
-                results.append(f"⚠️ Warehouse **{name}** is running but has no queries.")
+                results.append(
+                    f"⚠️ Warehouse **{name}** is running but has no queries."
+                )
             if auto_suspend is None or auto_resume != "true":
-                results.append(f"⚠️ Warehouse **{name}** is missing recommended suspend/resume settings.")
+                results.append(
+                    f"⚠️ Warehouse **{name}** is missing recommended suspend/resume settings."
+                )
 
         if not results:
             return "## ✅ Warehouse Check\nAll warehouses look good!\n"

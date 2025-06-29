@@ -1,5 +1,6 @@
 # flakecheck/recommend_optimizer.py
 
+
 def generate_recommendations(warehouse_report, query_report, storage_report):
     recommendations = ["## 🧠 Optimization Recommendations"]
 
@@ -8,7 +9,6 @@ def generate_recommendations(warehouse_report, query_report, storage_report):
         recommendations.append(
             "- ⚠️ One or more warehouses are running without queries. Consider reducing size or enabling auto-suspend."
         )
-
 
     if "missing recommended suspend/resume" in warehouse_report.lower():
         recommendations.append(
@@ -38,6 +38,8 @@ def generate_recommendations(warehouse_report, query_report, storage_report):
         )
 
     if len(recommendations) == 1:
-        recommendations.append("- ✅ No major issues detected. Your Snowflake setup looks healthy!")
+        recommendations.append(
+            "- ✅ No major issues detected. Your Snowflake setup looks healthy!"
+        )
 
     return "\n".join(recommendations) + "\n"

@@ -6,8 +6,9 @@ def check_storage(conn, config):
         account_type = config.get("account_type", "standard")
 
         # Shared: Top largest tables
-        cursor.execute("""
-            SELECT 
+        cursor.execute(
+            """
+            SELECT
                 t.table_schema,
                 t.table_name,
                 t.row_count,
@@ -21,7 +22,8 @@ def check_storage(conn, config):
             WHERE t.table_type = 'BASE TABLE'
             ORDER BY total_size_gb DESC
             LIMIT 5
-        """)
+        """
+        )
         rows = cursor.fetchall()
         results.append("## 🧱 Largest Tables (by total storage)")
         for r in rows:
@@ -30,26 +32,35 @@ def check_storage(conn, config):
                 f"(Active: {r[4]:.2f} / TT: {r[5]:.2f} / FS: {r[6]:.2f}) | 🧮 {r[2]} rows"
             )
 
-
         # Conditionally run inactive check
         if account_type == "enterprise":
-            results.append("\n✅ Enterprise mode: Checking access history for stale tables...")
+            results.append(
+                "\n✅ Enterprise mode: Checking access history for stale tables..."
+            )
             # Add account_usage.access_history-based logic here (if needed)
         else:
-            results.append("\n⚠️ Standard account: Using last_altered date to infer stale tables.")
-            cursor.execute("""
+            results.append(
+                "\n⚠️ Standard account: Using last_altered date to infer stale tables."
+            )
+            cursor.execute(
+                """
                 SELECT table_schema, table_name, last_altered
                 FROM information_schema.tables
                 WHERE table_type = 'BASE TABLE'
                   AND last_altered < DATEADD(day, -30, CURRENT_DATE())
                 ORDER BY last_altered ASC
                 LIMIT 5
-            """)
+            """
+            )
             inactive = cursor.fetchall()
             if inactive:
-                results.append("\n## 💤 Possibly Inactive Tables (Not altered in 30+ days)")
+                results.append(
+                    "\n## 💤 Possibly Inactive Tables (Not altered in 30+ days)"
+                )
                 for table in inactive:
-                    results.append(f"- `{table[0]}.{table[1]}` (Last altered: {table[2]})")
+                    results.append(
+                        f"- `{table[0]}.{table[1]}` (Last altered: {table[2]})"
+                    )
 
         return "\n".join(results) + "\n"
 
