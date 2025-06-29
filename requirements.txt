@@ -2,5 +2,5 @@ snowflake-connector-python
 requests
 pyyaml
 streamlit
-protobuf>=5.0,<6.0
-certifi>=2022.12.07
+altair
+pandas

@@ -43,7 +43,6 @@ def main():
 
         with open(report_path, "w") as f:
             f.write(f"# ❄️ FlakeCheck Report - {datetime.datetime.now().strftime('%Y-%m-%d')}\n\n")
-
             f.write(warehouse_report)
             f.write(query_report)
             f.write(storage_report)

@@ -1,5 +1,4 @@
-account_type: standard  # or enterprise
-
+account_type: standard
 auth_method: externalbrowser
 snowflake:
   account: your_account
@@ -7,7 +6,6 @@ snowflake:
   warehouse: COMPUTE_WH
   database: YOUR_DB
   schema: PUBLIC
-
 keypair:
-  private_key_path: /path/to/private_key.pk8
-  private_key_passphrase: your_passphrase
+  private_key_path: /path/to/key.pk8
+  private_key_passphrase: your_pass
