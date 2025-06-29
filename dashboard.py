@@ -3,6 +3,7 @@
 import streamlit as st
 import pandas as pd
 import altair as alt
+from PIL import Image
 from flakecheck.snowflake_connector import get_snowflake_connection
 from flakecheck.metrics_collector import (
     get_warehouse_credit_trends,
@@ -21,9 +22,12 @@ def load_report(file_path="outputs/audit_report.md"):
 
 
 def main():
+    logo_path = "logo/FlakeCheckWbg.png"
+    image = Image.open(logo_path)
     st.set_page_config(page_title="FlakeCheck Dashboard", layout="wide")
-    st.title("❄️ FlakeCheck - Snowflake Audit Dashboard")
-    st.markdown("---")
+    st.image(image, width=200)
+    st.title("FlakeCheck - Snowflake Audit Dashboard")
+    st.markdown("-----")
 
     config_path = st.sidebar.text_input("Config file path", "config.yaml")
     if st.sidebar.button("Load Usage Metrics"):
