@@ -3,6 +3,9 @@
 ![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Python](https://img.shields.io/badge/python-3.10+-blue.svg)
 ![CI Status](https://img.shields.io/github/actions/workflow/status/<your-username>/flakecheck/ci.yml?branch=main)
+<p align="center">
+  <img src="logo/FlakeCheckGit.png" width="200" alt="FlakeCheck Logo">
+</p>
 
 **FlakeCheck** is an open-source Snowflake audit and cost optimization toolkit built for data teams.
 
@@ -12,14 +15,14 @@ It analyzes your Snowflake usage, recommends improvements, and provides visual d
 
 ## 🚀 Features
 
-✅ Audit warehouse settings (auto-suspend, size, idle state)  
-✅ Analyze query costs and performance  
-✅ Identify large and inactive tables  
-✅ Generate actionable recommendations  
-✅ Send summary + report to Slack  
-✅ Visualize usage trends in Streamlit (credits, storage, queries)  
-✅ Configurable for Standard or Enterprise Snowflake accounts  
-✅ Markdown + optional HTML/PDF reports  
+✅ Audit warehouse settings (auto-suspend, size, idle state)
+✅ Analyze query costs and performance
+✅ Identify large and inactive tables
+✅ Generate actionable recommendations
+✅ Send summary + report to Slack
+✅ Visualize usage trends in Streamlit (credits, storage, queries)
+✅ Configurable for Standard or Enterprise Snowflake accounts
+✅ Markdown + optional HTML/PDF reports
 
 ---
 
@@ -102,7 +105,7 @@ You’ll receive:
 
 ## 🤝 Contributing
 
-Pull requests are welcome!  
+Pull requests are welcome!
 Feature ideas? Open an issue or discussion.
 
 ---
