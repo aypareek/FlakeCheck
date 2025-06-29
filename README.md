@@ -1,32 +1,29 @@
 # ❄️ FlakeCheck
 
-FlakeCheck is an open-source tool that audits your Snowflake data warehouse for performance and cost optimization.
+FlakeCheck is an open-source tool to audit Snowflake health and optimize cost with simple CLI execution.
 
-It scans warehouse usage, queries, and storage metrics, then provides **actionable recommendations** and optionally sends a **Slack notification** when complete.
+## 🚀 How to Run
 
-## 📊 Features
-- Identify underused or oversized warehouses
-- Detect long-running or costly queries
-- Report on large or unused tables
-- Suggest warehouse and query optimizations
-- Generate markdown reports
-- Optional Slack notifications
-
-## 🚀 Quick Start
-```bash
-git clone https://github.com/aypareek/flakecheck.git
-cd flakecheck
-pip install -r requirements.txt
-cp config.yaml.example config.yaml  # then edit with your Snowflake creds
-python main.py
-```
-
-## 🔔 Slack Integration
-Set your Slack Webhook as an environment variable:
+1. Fill in your Snowflake credentials in `config.yaml`
+2. Run the tool using the provided shell script:
 
 ```bash
-export SLACK_WEBHOOK_URL="https://hooks.slack.com/services/..."
+./run_flakecheck.sh
 ```
 
-## 📄 License
-[MIT](./LICENSE)
+## 📂 Config Example
+
+```yaml
+auth_method: externalbrowser  # or 'keypair'
+
+snowflake:
+  account: your_account
+  user: your_user
+  warehouse: COMPUTE_WH
+  database: YOUR_DB
+  schema: PUBLIC
+
+keypair:
+  private_key_path: /path/to/private_key.pk8
+  private_key_passphrase: your_passphrase
+```
