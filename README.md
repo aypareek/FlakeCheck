@@ -1,7 +1,7 @@
 # ❄️ FlakeCheck
 
 ![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
+![Python](https://img.shields.io/badge/python-3.10+-blue.svg)
 ![CI Status](https://img.shields.io/github/actions/workflow/status/<your-username>/flakecheck/ci.yml?branch=main)
 
 **FlakeCheck** is an open-source Snowflake audit and cost optimization toolkit built for data teams.
