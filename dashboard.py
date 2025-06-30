@@ -10,7 +10,11 @@ from flakecheck.metrics_collector import (
     get_storage_by_database,
     get_top_users_by_query_cost,
     get_query_count_over_time,
+    fetch_daily_credits,
+    get_database_query_activity,
+    get_top_expensive_queries,
 )
+from flakecheck.anomaly_detector import detect_cost_anomaly
 
 
 def load_report(file_path="outputs/audit_report.md"):
@@ -27,7 +31,6 @@ def main():
     st.set_page_config(page_title="FlakeCheck Dashboard", layout="wide")
     st.image(image, width=200)
     st.title("FlakeCheck - Snowflake Audit Dashboard")
-    st.markdown("-----")
 
     config_path = st.sidebar.text_input("Config file path", "config.yaml")
     if st.sidebar.button("Load Usage Metrics"):
@@ -37,6 +40,29 @@ def main():
             storage_df = get_storage_by_database(conn)
             user_df = get_top_users_by_query_cost(conn)
             query_trend_df = get_query_count_over_time(conn)
+            db_activity_df = get_database_query_activity(conn, days=30)
+            query_df = get_top_expensive_queries(conn, days=30, limit=20)
+
+            # ---- COST ANOMALY DETECTION ----
+            st.markdown("---")
+            st.subheader("🔎 Cost Anomaly Detection")
+            try:
+                daily_df = fetch_daily_credits(conn, days=30)
+                history = daily_df["daily_credits"].tolist()
+                anomaly_result = detect_cost_anomaly(history)
+                st.write(anomaly_result)
+
+                line_chart = (
+                    alt.Chart(daily_df)
+                    .mark_line(point=True)
+                    .encode(x="usage_date:T", y="daily_credits:Q")
+                    .properties(width=800)
+                )
+                st.altair_chart(line_chart, use_container_width=True)
+            except Exception as e:
+                st.error(f"Could not fetch cost anomaly data: {e}")
+            st.markdown("---")
+
             conn.close()
 
         if not credits_df.empty:
@@ -78,6 +104,35 @@ def main():
                 .properties(width=800)
             )
             st.altair_chart(line, use_container_width=True)
+
+        if not db_activity_df.empty:
+            st.subheader("🔥 Query Activity by Database (Last 30 Days)")
+            heatmap = (
+                alt.Chart(db_activity_df)
+                .mark_rect()
+                .encode(
+                    y=alt.Y("database_name:N", sort="-x"),
+                    x=alt.X("query_count:Q"),
+                    color=alt.Color(
+                        "query_count:Q", scale=alt.Scale(scheme="redyellowgreen")
+                    ),
+                )
+                .properties(width=700, height=350)
+            )
+            # Alternatively, bar chart (sometimes clearer):
+            bar = (
+                alt.Chart(db_activity_df)
+                .mark_bar()
+                .encode(
+                    x="query_count:Q",
+                    y=alt.Y("database_name:N", sort="-x"),
+                    color=alt.Color(
+                        "query_count:Q", scale=alt.Scale(scheme="redyellowgreen")
+                    ),
+                )
+                .properties(width=800)
+            )
+            st.altair_chart(bar, use_container_width=True)
 
     st.markdown("---")
     st.subheader("📄 FlakeCheck Markdown Report")
